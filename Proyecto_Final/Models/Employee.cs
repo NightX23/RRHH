@@ -66,6 +66,12 @@ namespace Proyecto_Final.Models
         [Required]
         [StringLength(8, MinimumLength = 6)]
         [Display(Name = "Estado")]
-        public string Status { get; set; }
+        public Status Status { get; set; }
+    }
+
+    public enum Status
+    {
+        Active,
+        Inactive
     }
 }
