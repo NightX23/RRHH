@@ -28,6 +28,7 @@ namespace Proyecto_Final.Models
         public string LastName { get; set; }
 
         [Phone]
+        [StringLength(20)]
         [Display(Name = "Teléfono")]
         public string Phone { get; set; }
 
