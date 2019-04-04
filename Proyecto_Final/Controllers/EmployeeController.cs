@@ -33,7 +33,7 @@ namespace Proyecto_Final.Controllers
                                select departmentName).ToList();
 
             positionsList = (from positionName in _db.Positions
-                               select positionName).ToList();
+                               select positionName).OrderBy(p=>p).ToList();
 
             //INSERTING SELECT ITEM IN LIST
             departmentsList.Insert(0, new Department { Id = 0, DepartmentName = "Select" });
