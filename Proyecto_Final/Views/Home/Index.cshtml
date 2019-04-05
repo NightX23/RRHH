@@ -3,8 +3,15 @@
 }
 
 <div>
+    <form>
+        <div class="form-group">
+            <a asp-controller="Employee" asp-action="Index" class="btn btn-primary">Register - Employee</a>
+            
+        </div>
+        
+
+        <a asp-controller="Department" asp-action="Index" class="btn btn-primary">Add Department</a>
+        <a asp-controller="Position" asp-action="Index" class="btn btn-primary">Add Position</a>
+    </form>
     
-    <a asp-controller="Employee" asp-action="Create" class="btn btn-primary">Register - Employee</a>
-    <a asp-controller="Department" asp-action="Index" class="btn btn-primary">Add Department</a>
-    <a asp-controller="Position" asp-action="Index" class="btn btn-primary">Add Position</a>
 </div>
