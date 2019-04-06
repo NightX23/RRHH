@@ -6,7 +6,6 @@ using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage;
 using Microsoft.EntityFrameworkCore.Storage.Internal;
 using Proyecto_Final.Data;
-using Proyecto_Final.Models;
 using System;
 
 namespace Proyecto_Final.Migrations
@@ -40,7 +39,7 @@ namespace Proyecto_Final.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<int>("Department");
+                    b.Property<int>("DepartmentId");
 
                     b.Property<string>("Email")
                         .HasMaxLength(50);
@@ -60,16 +59,21 @@ namespace Proyecto_Final.Migrations
                     b.Property<string>("Phone")
                         .HasMaxLength(20);
 
-                    b.Property<int>("Position");
+                    b.Property<int>("PositionId");
 
                     b.Property<double>("Salary");
 
                     b.Property<DateTime>("StartDate");
 
-                    b.Property<int>("Status")
+                    b.Property<string>("Status")
+                        .IsRequired()
                         .HasMaxLength(8);
 
                     b.HasKey("Id");
+
+                    b.HasIndex("DepartmentId");
+
+                    b.HasIndex("PositionId");
 
                     b.ToTable("Employees");
                 });
@@ -86,6 +90,19 @@ namespace Proyecto_Final.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Positions");
+                });
+
+            modelBuilder.Entity("Proyecto_Final.Models.Employee", b =>
+                {
+                    b.HasOne("Proyecto_Final.Models.Department", "Department")
+                        .WithMany()
+                        .HasForeignKey("DepartmentId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("Proyecto_Final.Models.Position", "Position")
+                        .WithMany()
+                        .HasForeignKey("PositionId")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 #pragma warning restore 612, 618
         }

@@ -1,5 +1,4 @@
-﻿@model Proyecto_Final.Models.Employee
-
+﻿@model Proyecto_Final.ViewModels.DepartmentAndPositionInEmployeeViewModel
 @{
     ViewData["Title"] = "Create";
 }
@@ -10,60 +9,59 @@
 <hr />
 <div class="row">
     <div class="col-md-4">
-        <form asp-action="Create" method="post">
+        <form asp-action="Create">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
-                <label asp-for="IdentificationId" class="control-label"></label>
-                <input asp-for="IdentificationId" class="form-control" />
-                <span asp-validation-for="IdentificationId" class="text-danger"></span>
+                <label asp-for="EmployeeObj.IdentificationId" class="control-label"></label>
+                <input asp-for="EmployeeObj.IdentificationId" class="form-control" />
+                <span asp-validation-for="EmployeeObj.IdentificationId" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="FirstName" class="control-label"></label>
-                <input asp-for="FirstName" class="form-control" />
-                <span asp-validation-for="FirstName" class="text-danger"></span>
+                <label asp-for="EmployeeObj.FirstName" class="control-label"></label>
+                <input asp-for="EmployeeObj.FirstName" class="form-control" />
+                <span asp-validation-for="EmployeeObj.FirstName" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="LastName" class="control-label"></label>
-                <input asp-for="LastName" class="form-control" />
-                <span asp-validation-for="LastName" class="text-danger"></span>
+                <label asp-for="EmployeeObj.LastName" class="control-label"></label>
+                <input asp-for="EmployeeObj.LastName" class="form-control" />
+                <span asp-validation-for="EmployeeObj.LastName" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Phone" class="control-label"></label>
-                <input asp-for="Phone" class="form-control" />
-                <span asp-validation-for="Phone" class="text-danger"></span>
+                <label asp-for="EmployeeObj.Phone" class="control-label"></label>
+                <input asp-for="EmployeeObj.Phone" class="form-control" />
+                <span asp-validation-for="EmployeeObj.Phone" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Email" class="control-label"></label>
-                <input asp-for="Email" class="form-control" />
-                <span asp-validation-for="Email" class="text-danger"></span>
+                <label asp-for="EmployeeObj.Email" class="control-label"></label>
+                <input asp-for="EmployeeObj.Email" class="form-control" />
+                <span asp-validation-for="EmployeeObj.Email" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Department" class="control-label"></label>
-                <select asp-for="Id" class="form-control" 
-                    asp-items="@(new SelectList(ViewBag.ListofDepartments, "Id", "DepartmentName"))">
+                <label asp-for="EmployeeObj.DepartmentId" class="control-label"></label>
+                <select asp-for="EmployeeObj.DepartmentId" class="form-control" 
+                    asp-items="@(new SelectList(Model.DepartmentObj, "Id", "DepartmentName"))">
                 </select>
-                <span asp-validation-for="Department" class="text-danger"></span>
+                <span asp-validation-for="EmployeeObj.DepartmentId" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Position" class="control-label"></label>
-                <select asp-for="Id" class="form-control"
-                    asp-items="@(new SelectList(ViewBag.ListofDepartments, "Id", "DepartmentName"))">
+                <label asp-for="EmployeeObj.PositionId" class="control-label"></label>
+                <select asp-for="EmployeeObj.PositionId" class="form-control"
+                        asp-items="@(new SelectList(Model.PositionObj, "Id", "PositionName"))">
                 </select>
-                <span asp-validation-for="Position" class="text-danger"></span>
+                <span asp-validation-for="EmployeeObj.PositionId" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="StartDate" class="control-label"></label>
-                <input asp-for="StartDate" class="form-control" />
-                <span asp-validation-for="StartDate" class="text-danger"></span>
+                <label asp-for="EmployeeObj.StartDate" class="control-label"></label>
+                <input asp-for="EmployeeObj.StartDate" class="form-control" />
+                <span asp-validation-for="EmployeeObj.StartDate" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Salary" class="control-label"></label>
-                <input asp-for="Salary" class="form-control" />
-                <span asp-validation-for="Salary" class="text-danger"></span>
+                <label asp-for="EmployeeObj.Salary" class="control-label"></label>
+                <input asp-for="EmployeeObj.Salary" class="form-control" />
+                <span asp-validation-for="EmployeeObj.Salary" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <input asp-for="Status" type="radio" value="Active" checked disabled hidden/>
-                <span asp-validation-for="Status" class="text-danger"></span>
+                <input asp-for="EmployeeObj.Status" type="radio" value="Active" checked disabled hidden/>
             </div>
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />

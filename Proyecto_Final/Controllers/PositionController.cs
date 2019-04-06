@@ -53,7 +53,7 @@ namespace Proyecto_Final.Controllers
                 return NotFound();
             }
 
-            Position position = await _db.Positions.SingleOrDefaultAsync(d => d.Id == id);
+            Position position = await _db.Positions.SingleOrDefaultAsync(p => p.Id == id);
 
             if (position == null)
             {
@@ -74,7 +74,7 @@ namespace Proyecto_Final.Controllers
             }
             else
             {
-                var positionInDB = await _db.Positions.SingleOrDefaultAsync(d => d.Id == position.Id);
+                var positionInDB = await _db.Positions.SingleOrDefaultAsync(p => p.Id == position.Id);
                 if (positionInDB == null)
                 {
                     return NotFound();

@@ -11,8 +11,8 @@ using System;
 namespace Proyecto_Final.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20190404044736_AddMaintenanceModels2")]
-    partial class AddMaintenanceModels2
+    [Migration("20190406153459_FixingEmployeeModelAndViewModel")]
+    partial class FixingEmployeeModelAndViewModel
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -40,7 +40,7 @@ namespace Proyecto_Final.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<int>("Department");
+                    b.Property<int>("DepartmentId");
 
                     b.Property<string>("Email")
                         .HasMaxLength(50);
@@ -60,7 +60,7 @@ namespace Proyecto_Final.Migrations
                     b.Property<string>("Phone")
                         .HasMaxLength(20);
 
-                    b.Property<int>("Position");
+                    b.Property<int>("PositionId");
 
                     b.Property<double>("Salary");
 
@@ -72,6 +72,10 @@ namespace Proyecto_Final.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("DepartmentId");
+
+                    b.HasIndex("PositionId");
+
                     b.ToTable("Employees");
                 });
 
@@ -82,11 +86,24 @@ namespace Proyecto_Final.Migrations
 
                     b.Property<string>("PositionName")
                         .IsRequired()
-                        .HasMaxLength(25);
+                        .HasMaxLength(40);
 
                     b.HasKey("Id");
 
                     b.ToTable("Positions");
+                });
+
+            modelBuilder.Entity("Proyecto_Final.Models.Employee", b =>
+                {
+                    b.HasOne("Proyecto_Final.Models.Department", "Department")
+                        .WithMany()
+                        .HasForeignKey("DepartmentId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("Proyecto_Final.Models.Position", "Position")
+                        .WithMany()
+                        .HasForeignKey("PositionId")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 #pragma warning restore 612, 618
         }

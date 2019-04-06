@@ -8,7 +8,7 @@ namespace Proyecto_Final.Models
 {
     public class Department
     {
-        [Key]
+        [Required]
         public int Id { get; set; }
 
         [Required(ErrorMessage = "Este campo es obligatorio.")]

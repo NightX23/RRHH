@@ -9,11 +9,12 @@ namespace Proyecto_Final.Models
 {
     public class Employee
     {
-        [Key]
+        
+        [Display(Name ="Código")]
         public int Id { get; set; }
 
         [Required(ErrorMessage = "Este campo es obligatorio.")]
-        [StringLength(11, ErrorMessage = "El campo ingresado debe tener {0} dígitos.")]
+        [StringLength(11, ErrorMessage = "El campo ingresado debe tener {1} dígitos.")]
         [Display(Name = "Cédula")]
         public string IdentificationId { get; set; }
 
@@ -39,17 +40,17 @@ namespace Proyecto_Final.Models
         public string Email { get; set; }
 
         //FK DEPARTMENT---------------------------------------------------------------
-        [ForeignKey("Department")]
-        [Required(ErrorMessage = "Este campo es obligatorio.")]
-        [Display(Name = "Departamento")]
-        public int Department { get; set; }
+        public int DepartmentId { get; set; }
+
+        [ForeignKey("DepartmentId")]
+        public virtual Department Department { get; set; }
         //----------------------------------------------------------------------------
 
         //FK POSITION-----------------------------------------------------------------
-        [ForeignKey("Position")]
-        [Required(ErrorMessage = "Este campo es obligatorio.")]
-        [Display(Name = "Cargo")]
-        public int Position { get; set; }
+        public int PositionId { get; set; }
+
+        [ForeignKey("PositionId")]
+        public virtual Position Position { get; set; }
         //----------------------------------------------------------------------------
 
         [Required(ErrorMessage = "Este campo es obligatorio.")]
@@ -66,12 +67,8 @@ namespace Proyecto_Final.Models
         [Required]
         [StringLength(8, MinimumLength = 6)]
         [Display(Name = "Estado")]
-        public Status Status { get; set; }
+        //public Status Status { get; set; }
+        public string Status { get; set; } = "Active";
     }
 
-    public enum Status
-    {
-        Active,
-        Inactive
-    }
 }
