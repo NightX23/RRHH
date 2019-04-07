@@ -20,11 +20,11 @@ namespace Proyecto_Final.Controllers
             _db = db;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            var employees = _db.Employees.ToList();
-
-            return View(employees);
+            //var model = _db.Employees.ToList();
+            var model = _db.Employees.Include(e => e.Position).Include(e => e.Department);
+            return View(await model.ToListAsync());
         }
 
         public IActionResult Create()
@@ -43,7 +43,7 @@ namespace Proyecto_Final.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(DepartmentAndPositionInEmployeeViewModel model)
         {
-
+            model.EmployeeObj.Department = await _db.Departments.SingleOrDefaultAsync(d => d.Id == model.EmployeeObj.DepartmentId);
             if (ModelState.IsValid)
             {
                 _db.Add(model.EmployeeObj);

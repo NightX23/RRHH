@@ -4,14 +4,24 @@
 
 <div>
     <form>
-        <div class="form-group">
-            <a asp-controller="Employee" asp-action="Index" class="btn btn-primary">Register - Employee</a>
-            
+        <h2>Maintenance Module</h2>
+        <div class="form-group"
+             style="border:1px solid gray;margin:10px;padding:5px; border-radius:5px;">
+            <a asp-controller="Employee" asp-action="Index" class="btn btn-lg btn-primary">Employee Operations</a>
+            <a asp-controller="Department" asp-action="Index" class="btn btn-lg btn-primary">Department Operations</a>
+            <a asp-controller="Position" asp-action="Index" class="btn btn-lg btn-primary">Position Operations</a>
         </div>
-        
 
-        <a asp-controller="Department" asp-action="Index" class="btn btn-primary">Add Department</a>
-        <a asp-controller="Position" asp-action="Index" class="btn btn-primary">Add Position</a>
+        <h2>Proccess Module</h2>
+        <div class="form-group"
+             style="border:1px solid gray;margin:10px;padding:5px; border-radius:5px;">
+            <a asp-controller="Paysheet" asp-action="Index" class="btn btn-lg btn-primary">Paysheet Operations</a>
+            <a asp-controller="Employee" asp-action="Index" class="btn btn-lg btn-primary">Employee's X</a>
+            <a asp-controller="Vacation" asp-action="Index" class="btn btn-lg btn-primary">Vacation Operations</a>
+        </div>
+
+
+
     </form>
     
 </div>
