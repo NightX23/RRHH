@@ -20,5 +20,6 @@ namespace Proyecto_Final.Data
         public DbSet<Position> Positions { get; set; }
 
         public DbSet<Vacation> Vacations { get; set; }
+        public DbSet<Permission> Permissions { get; set; }
     }
 }
