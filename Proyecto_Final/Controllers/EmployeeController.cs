@@ -20,19 +20,25 @@ namespace Proyecto_Final.Controllers
             _db = db;
         }
 
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string option = null, string search =  null)
         {
-            //var model = _db.Employees.ToList();
-            var model = _db.Employees.Include(e => e.Position).Include(e => e.Department);
-            return View(await model.ToListAsync());
+            var searchResult = _db.Employees.Include(e => e.Position).Include(e => e.Department);
+
+            //if (option == "name" && search != null)
+            //{
+            //    searchResult = _db.Employees.Where(u => u.FirstName.ToLower().Contains(search.ToLower()))
+            //        .Include(e => e.Department).Include(e => e.Position).ToListAsync();
+            //}
+
+            return View(await searchResult.OrderByDescending(e => e.Id).ToListAsync());
         }
 
         public IActionResult Create()
         {
             var model = new DepartmentAndPositionInEmployeeViewModel
             {
-                DepartmentObj = _db.Departments.ToList(),
-                PositionObj = _db.Positions.ToList()
+                DepartmentObj = _db.Departments.OrderBy(d => d.DepartmentName).ToList(),
+                PositionObj = _db.Positions.OrderBy(p => p.PositionName).ToList()
             };
 
             return View(model);

@@ -20,7 +20,7 @@ namespace Proyecto_Final.Controllers
 
         public IActionResult Index()
         {
-            var departments = _db.Departments.ToList(); ;
+            var departments = _db.Departments.OrderBy(d => d.DepartmentName).ToList(); ;
 
             return View(departments);
         }

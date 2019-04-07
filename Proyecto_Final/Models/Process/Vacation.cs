@@ -29,6 +29,6 @@ namespace Proyecto_Final.Models.Process
         [Display(Name = "Hasta")]
         public DateTime EndDate { get; set; }
         [Display(Name ="Comentario")]
-        public string comment { get; set; }
+        public string Comment { get; set; }
     }
 }
