@@ -89,5 +89,54 @@ namespace Proyecto_Final.Controllers
                 }                
             }
         }
+
+        //GET: Department/Delete/#id
+        public async Task<IActionResult> Delete(int id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            Department department = await _db.Departments.SingleOrDefaultAsync(d => d.Id == id);
+
+            if (department == null)
+            {
+                return NotFound();
+            }
+
+            return  View(department);
+        }
+
+        //POST: Department/Delete/#id
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Deleting(int id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var department = await _db.Departments.SingleOrDefaultAsync(d => d.Id == id);
+
+            if (department == null)
+            {
+                return NotFound();
+            }
+
+            _db.Remove(department);
+            await _db.SaveChangesAsync();
+
+            return RedirectToAction(nameof(Index));
+        }
+
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                _db.Dispose();
+            }
+        }
     }
 }

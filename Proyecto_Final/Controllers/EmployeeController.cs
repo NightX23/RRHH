@@ -106,6 +106,23 @@ namespace Proyecto_Final.Controllers
             }
         }
 
+        public async Task<IActionResult> Details(int id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            Employee employee = await _db.Employees.SingleOrDefaultAsync(e => e.Id == id);
+
+            if (employee == null)
+            {
+                return NotFound();
+            }
+
+            return View(employee);
+        }
+
         protected override void Dispose(bool disposing)
         {
             if (disposing)

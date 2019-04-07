@@ -89,5 +89,54 @@ namespace Proyecto_Final.Controllers
                 }
             }
         }
+
+        //GET: Position/Delete/#id
+        public async Task<IActionResult> Delete(int id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            Position position = await _db.Positions.SingleOrDefaultAsync(p => p.Id == id);
+
+            if (position == null)
+            {
+                return NotFound();
+            }
+
+            return View(position);
+        }
+
+        //POST: Position/Delete/#id
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Deleting(int id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var position = await _db.Positions.SingleOrDefaultAsync(p => p.Id == id);
+
+            if (position == null)
+            {
+                return NotFound();
+            }
+
+            _db.Remove(position);
+            await _db.SaveChangesAsync();
+
+            return RedirectToAction(nameof(Index));
+        }
+
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                _db.Dispose();
+            }
+        }
     }
 }

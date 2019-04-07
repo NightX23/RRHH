@@ -12,6 +12,7 @@ namespace Proyecto_Final.Models
         public int Id { get; set; }
 
         [Required(ErrorMessage = "Este campo es obligatorio.")]
+        
         [Display(Name = "Cargo")]
         [StringLength(40, ErrorMessage = "El campo ingresado es demasiado largo.")]
         public string PositionName { get; set; }
