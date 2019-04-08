@@ -22,7 +22,8 @@ namespace Proyecto_Final.Controllers
 
         public async Task<IActionResult> Index(string option = null, string search =  null)
         {
-            var searchResult = _db.Employees.Include(e => e.Position).Include(e => e.Department);
+            var searchResult = _db.Employees.Where(e => e.Status == "Active")
+                .Include(e => e.Position).Include(e => e.Department);
 
             //if (option == "name" && search != null)
             //{

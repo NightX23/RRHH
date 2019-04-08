@@ -137,6 +137,29 @@ namespace Proyecto_Final.Migrations
                     b.ToTable("Permissions");
                 });
 
+            modelBuilder.Entity("Proyecto_Final.Models.Process.Resignation", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<int>("EmployeeId");
+
+                    b.Property<string>("Reason")
+                        .IsRequired()
+                        .HasMaxLength(50);
+
+                    b.Property<DateTime>("ResignationDate");
+
+                    b.Property<string>("ResignationType")
+                        .IsRequired();
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("EmployeeId");
+
+                    b.ToTable("Resignations");
+                });
+
             modelBuilder.Entity("Proyecto_Final.Models.Process.Vacation", b =>
                 {
                     b.Property<int>("Id")
@@ -180,6 +203,14 @@ namespace Proyecto_Final.Migrations
                 });
 
             modelBuilder.Entity("Proyecto_Final.Models.Process.Permission", b =>
+                {
+                    b.HasOne("Proyecto_Final.Models.Employee", "Employee")
+                        .WithMany()
+                        .HasForeignKey("EmployeeId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("Proyecto_Final.Models.Process.Resignation", b =>
                 {
                     b.HasOne("Proyecto_Final.Models.Employee", "Employee")
                         .WithMany()

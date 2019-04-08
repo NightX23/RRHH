@@ -11,8 +11,8 @@ using System;
 namespace Proyecto_Final.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20190408004212_FreshStart")]
-    partial class FreshStart
+    [Migration("20190408020720_FreshRestart")]
+    partial class FreshRestart
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -123,7 +123,7 @@ namespace Proyecto_Final.Migrations
                         .ValueGeneratedOnAdd();
 
                     b.Property<string>("Comment")
-                        .HasMaxLength(20);
+                        .HasMaxLength(30);
 
                     b.Property<int>("EmployeeId");
 
@@ -138,13 +138,36 @@ namespace Proyecto_Final.Migrations
                     b.ToTable("Permissions");
                 });
 
+            modelBuilder.Entity("Proyecto_Final.Models.Process.Resignation", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<int>("EmployeeId");
+
+                    b.Property<string>("Reason")
+                        .IsRequired()
+                        .HasMaxLength(50);
+
+                    b.Property<DateTime>("ResignationDate");
+
+                    b.Property<string>("ResignationType")
+                        .IsRequired();
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("EmployeeId");
+
+                    b.ToTable("Resignations");
+                });
+
             modelBuilder.Entity("Proyecto_Final.Models.Process.Vacation", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
 
                     b.Property<string>("Comment")
-                        .HasMaxLength(20);
+                        .HasMaxLength(30);
 
                     b.Property<int>("EmployeeId");
 
@@ -181,6 +204,14 @@ namespace Proyecto_Final.Migrations
                 });
 
             modelBuilder.Entity("Proyecto_Final.Models.Process.Permission", b =>
+                {
+                    b.HasOne("Proyecto_Final.Models.Employee", "Employee")
+                        .WithMany()
+                        .HasForeignKey("EmployeeId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("Proyecto_Final.Models.Process.Resignation", b =>
                 {
                     b.HasOne("Proyecto_Final.Models.Employee", "Employee")
                         .WithMany()

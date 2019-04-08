@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace Proyecto_Final.Migrations
 {
-    public partial class FreshStart : Migration
+    public partial class FreshRestart : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -98,7 +98,7 @@ namespace Proyecto_Final.Migrations
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    Comment = table.Column<string>(maxLength: 20, nullable: true),
+                    Comment = table.Column<string>(maxLength: 30, nullable: true),
                     EmployeeId = table.Column<int>(nullable: false),
                     EndDate = table.Column<DateTime>(nullable: false),
                     StartDate = table.Column<DateTime>(nullable: false)
@@ -115,12 +115,34 @@ namespace Proyecto_Final.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Resignations",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    EmployeeId = table.Column<int>(nullable: false),
+                    Reason = table.Column<string>(maxLength: 50, nullable: false),
+                    ResignationDate = table.Column<DateTime>(nullable: false),
+                    ResignationType = table.Column<string>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Resignations", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Resignations_Employees_EmployeeId",
+                        column: x => x.EmployeeId,
+                        principalTable: "Employees",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Vacations",
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    Comment = table.Column<string>(maxLength: 20, nullable: true),
+                    Comment = table.Column<string>(maxLength: 30, nullable: true),
                     EmployeeId = table.Column<int>(nullable: false),
                     EndDate = table.Column<DateTime>(nullable: false),
                     StartDate = table.Column<DateTime>(nullable: false)
@@ -157,6 +179,11 @@ namespace Proyecto_Final.Migrations
                 column: "EmployeeId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Resignations_EmployeeId",
+                table: "Resignations",
+                column: "EmployeeId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Vacations_EmployeeId",
                 table: "Vacations",
                 column: "EmployeeId");
@@ -169,6 +196,9 @@ namespace Proyecto_Final.Migrations
 
             migrationBuilder.DropTable(
                 name: "Permissions");
+
+            migrationBuilder.DropTable(
+                name: "Resignations");
 
             migrationBuilder.DropTable(
                 name: "Vacations");

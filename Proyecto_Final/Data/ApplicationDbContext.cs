@@ -21,5 +21,6 @@ namespace Proyecto_Final.Data
         public DbSet<Vacation> Vacations { get; set; }
         public DbSet<Permission> Permissions { get; set; }
         public DbSet<License> Licenses { get; set; }
+        public DbSet<Resignation> Resignations { get; set; }
     }
 }
