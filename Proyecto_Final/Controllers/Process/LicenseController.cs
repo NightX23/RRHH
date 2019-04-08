@@ -10,26 +10,26 @@ using Proyecto_Final.ViewModels;
 
 namespace Proyecto_Final.Controllers.Process
 {
-    public class VacationController : Controller
+    public class LicenseController : Controller
     {
         private readonly ApplicationDbContext _db;
 
-        public VacationController(ApplicationDbContext db)
+        public LicenseController(ApplicationDbContext db)
         {
             _db = db;
         }
 
         public async Task<IActionResult> Index()
         {
-            var searchList = _db.Vacations.Include(v => v.Employee);
+            var searchList = _db.Licenses.Include(e => e.Employee);
 
-            return View(await searchList.OrderBy(v => v.Id).ToListAsync());
+            return View(await searchList.OrderBy(l => l.Id).ToListAsync());
         }
 
-        //GET: Permission/Create
+        // GET: License/Create
         public IActionResult Create()
         {
-            var model = new VacationAndEmployeeViewModel
+            var model = new LicenseAndEmployeeViewModel
             {
                 EmployeeList = _db.Employees.ToList()
             };
@@ -37,24 +37,25 @@ namespace Proyecto_Final.Controllers.Process
             return View(model);
         }
 
-        //POST: Create/
+        // POST: Permission/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(VacationAndEmployeeViewModel model)
+        public async Task<IActionResult> Create(LicenseAndEmployeeViewModel model)
         {
             if (ModelState.IsValid)
             {
-                _db.Add(model.VacationObj);
+                _db.Add(model.LicenseObj);
                 await _db.SaveChangesAsync();
+
                 return RedirectToAction(nameof(Index));
             }
 
-            var newmodel = new VacationAndEmployeeViewModel();
-
+            var newmodel = new LicenseAndEmployeeViewModel();
             return View(newmodel);
+
         }
 
-        //GET: Edit/#id
+        // GET: Permission/Edit/#id
         public async Task<IActionResult> Edit(int id)
         {
             if (id == null)
@@ -62,12 +63,11 @@ namespace Proyecto_Final.Controllers.Process
                 return NotFound();
             }
 
-            var model = new VacationAndEmployeeViewModel
+            var model = new LicenseAndEmployeeViewModel
             {
-                EmployeeList = _db.Employees.ToList(),
-                VacationObj = _db.Vacations.SingleOrDefault(v => v.Id == id)
+                EmployeeList = await _db.Employees.ToListAsync(),
+                LicenseObj = await _db.Licenses.SingleOrDefaultAsync(l => l.Id == id)
             };
-
 
             if (model == null)
             {
@@ -77,10 +77,10 @@ namespace Proyecto_Final.Controllers.Process
             return View(model);
         }
 
-        //POST: Edit/#id
+        // POST: Permission/Edit/#id
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(VacationAndEmployeeViewModel model)
+        public async Task<IActionResult> Edit(LicenseAndEmployeeViewModel model)
         {
             if (!ModelState.IsValid)
             {
@@ -89,37 +89,38 @@ namespace Proyecto_Final.Controllers.Process
 
             else
             {
-                var vacationInDB = await _db.Vacations.SingleOrDefaultAsync(v => v.Id == model.VacationObj.Id);
+                var licenseInDB = await _db.Licenses.SingleOrDefaultAsync(v => v.Id == model.LicenseObj.Id);
 
-                if (vacationInDB == null)
+                if (licenseInDB == null)
                 {
                     return NotFound();
                 }
                 else
                 {
-                    vacationInDB.EmployeeId = model.VacationObj.EmployeeId;
-                    vacationInDB.StartDate = model.VacationObj.StartDate;
-                    vacationInDB.EndDate = model.VacationObj.EndDate;
-                    vacationInDB.Comment = model.VacationObj.Comment;
+                    licenseInDB.EmployeeId = model.LicenseObj.EmployeeId;
+                    licenseInDB.StartDate = model.LicenseObj.StartDate;
+                    licenseInDB.EndDate = model.LicenseObj.EndDate;
+                    licenseInDB.Reason = model.LicenseObj.Reason;
+                    licenseInDB.Comment = model.LicenseObj.Comment;
 
                     await _db.SaveChangesAsync();
                     return RedirectToAction(nameof(Index));
                 }
-            }    
+            }
         }
 
-        //GET: Delete/#id
+        // GET: Permission/Delete/#id
         public async Task<IActionResult> Delete(int id)
         {
             if (id == null)
             {
                 return NotFound();
             }
-
-            Vacation model = await _db.Vacations.SingleOrDefaultAsync(v => v.Id == id);
+            
+            License model = await _db.Licenses.SingleOrDefaultAsync(l => l.Id == id);
             model.Employee = await _db.Employees.SingleOrDefaultAsync(e => e.Id == model.EmployeeId);
 
-            if (model ==  null)
+            if (model == null)
             {
                 return NotFound();
             }
@@ -127,14 +128,14 @@ namespace Proyecto_Final.Controllers.Process
             return View(model);
         }
 
-        //POST: Delete/#id
+        // POST: Permission/Delete/#id
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Deleting(int id)
+        public async Task<IActionResult> Deleting(int id)
         {
-            var vacation = await _db.Vacations.SingleOrDefaultAsync(v => v.Id == id);
-            vacation.Employee = await _db.Employees.SingleOrDefaultAsync(e => e.Id == vacation.EmployeeId);
-            _db.Remove(vacation);
+            var license = await _db.Licenses.SingleOrDefaultAsync(p => p.Id == id);
+            license.Employee = await _db.Employees.SingleOrDefaultAsync(e => e.Id == license.EmployeeId);
+            _db.Remove(license);
             await _db.SaveChangesAsync();
 
             return RedirectToAction(nameof(Index));

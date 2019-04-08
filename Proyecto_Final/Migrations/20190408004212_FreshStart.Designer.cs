@@ -11,8 +11,8 @@ using System;
 namespace Proyecto_Final.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20190407184133_AddVacationEntityToDB2")]
-    partial class AddVacationEntityToDB2
+    [Migration("20190408004212_FreshStart")]
+    partial class FreshStart
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -93,12 +93,58 @@ namespace Proyecto_Final.Migrations
                     b.ToTable("Positions");
                 });
 
+            modelBuilder.Entity("Proyecto_Final.Models.Process.License", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("Comment")
+                        .HasMaxLength(40);
+
+                    b.Property<int>("EmployeeId");
+
+                    b.Property<DateTime>("EndDate");
+
+                    b.Property<string>("Reason")
+                        .HasMaxLength(30);
+
+                    b.Property<DateTime>("StartDate");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("EmployeeId");
+
+                    b.ToTable("Licenses");
+                });
+
+            modelBuilder.Entity("Proyecto_Final.Models.Process.Permission", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("Comment")
+                        .HasMaxLength(20);
+
+                    b.Property<int>("EmployeeId");
+
+                    b.Property<DateTime>("EndDate");
+
+                    b.Property<DateTime>("StartDate");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("EmployeeId");
+
+                    b.ToTable("Permissions");
+                });
+
             modelBuilder.Entity("Proyecto_Final.Models.Process.Vacation", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<string>("Comment");
+                    b.Property<string>("Comment")
+                        .HasMaxLength(20);
 
                     b.Property<int>("EmployeeId");
 
@@ -123,6 +169,22 @@ namespace Proyecto_Final.Migrations
                     b.HasOne("Proyecto_Final.Models.Position", "Position")
                         .WithMany()
                         .HasForeignKey("PositionId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("Proyecto_Final.Models.Process.License", b =>
+                {
+                    b.HasOne("Proyecto_Final.Models.Employee", "Employee")
+                        .WithMany()
+                        .HasForeignKey("EmployeeId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("Proyecto_Final.Models.Process.Permission", b =>
+                {
+                    b.HasOne("Proyecto_Final.Models.Employee", "Employee")
+                        .WithMany()
+                        .HasForeignKey("EmployeeId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 

@@ -7,9 +7,9 @@ using System.Threading.Tasks;
 
 namespace Proyecto_Final.ViewModels
 {
-    public class VacationAndEmployeeViewModel
+    public class LicenseAndEmployeeViewModel
     {
-        public Vacation VacationObj { get; set; }
+        public License LicenseObj { get; set; }
         public List<Employee> EmployeeList { get; set; }
     }
 }

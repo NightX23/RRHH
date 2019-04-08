@@ -92,12 +92,37 @@ namespace Proyecto_Final.Migrations
                     b.ToTable("Positions");
                 });
 
+            modelBuilder.Entity("Proyecto_Final.Models.Process.License", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("Comment")
+                        .HasMaxLength(40);
+
+                    b.Property<int>("EmployeeId");
+
+                    b.Property<DateTime>("EndDate");
+
+                    b.Property<string>("Reason")
+                        .HasMaxLength(30);
+
+                    b.Property<DateTime>("StartDate");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("EmployeeId");
+
+                    b.ToTable("Licenses");
+                });
+
             modelBuilder.Entity("Proyecto_Final.Models.Process.Permission", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<string>("Comment");
+                    b.Property<string>("Comment")
+                        .HasMaxLength(30);
 
                     b.Property<int>("EmployeeId");
 
@@ -117,7 +142,8 @@ namespace Proyecto_Final.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<string>("Comment");
+                    b.Property<string>("Comment")
+                        .HasMaxLength(30);
 
                     b.Property<int>("EmployeeId");
 
@@ -142,6 +168,14 @@ namespace Proyecto_Final.Migrations
                     b.HasOne("Proyecto_Final.Models.Position", "Position")
                         .WithMany()
                         .HasForeignKey("PositionId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("Proyecto_Final.Models.Process.License", b =>
+                {
+                    b.HasOne("Proyecto_Final.Models.Employee", "Employee")
+                        .WithMany()
+                        .HasForeignKey("EmployeeId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 

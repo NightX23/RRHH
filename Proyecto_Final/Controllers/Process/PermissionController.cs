@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Proyecto_Final.Data;
@@ -10,26 +11,32 @@ using Proyecto_Final.ViewModels;
 
 namespace Proyecto_Final.Controllers.Process
 {
-    public class VacationController : Controller
+    public class PermissionController : Controller
     {
         private readonly ApplicationDbContext _db;
 
-        public VacationController(ApplicationDbContext db)
+        public PermissionController(ApplicationDbContext db)
         {
             _db = db;
         }
 
         public async Task<IActionResult> Index()
         {
-            var searchList = _db.Vacations.Include(v => v.Employee);
+            var searchList = _db.Permissions.Include(v => v.Employee);
 
-            return View(await searchList.OrderBy(v => v.Id).ToListAsync());
+            return View(await searchList.OrderBy(p => p.Id).ToListAsync());
         }
 
-        //GET: Permission/Create
+        
+        public IActionResult Details(int id)
+        {
+            return View();
+        }
+
+        // GET: Permission/Create
         public IActionResult Create()
         {
-            var model = new VacationAndEmployeeViewModel
+            var model = new PermissionAndEmployeeViewModel
             {
                 EmployeeList = _db.Employees.ToList()
             };
@@ -37,35 +44,36 @@ namespace Proyecto_Final.Controllers.Process
             return View(model);
         }
 
-        //POST: Create/
+        // POST: Permission/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(VacationAndEmployeeViewModel model)
+        public async Task<IActionResult> Create(PermissionAndEmployeeViewModel model)
         {
             if (ModelState.IsValid)
             {
-                _db.Add(model.VacationObj);
+                _db.Add(model.PermissionObj);
                 await _db.SaveChangesAsync();
+
                 return RedirectToAction(nameof(Index));
             }
 
-            var newmodel = new VacationAndEmployeeViewModel();
-
+            var newmodel = new PermissionAndEmployeeViewModel();
             return View(newmodel);
+
         }
 
-        //GET: Edit/#id
-        public async Task<IActionResult> Edit(int id)
+        // GET: Permission/Edit/#id
+        public IActionResult Edit(int id)
         {
             if (id == null)
             {
                 return NotFound();
             }
 
-            var model = new VacationAndEmployeeViewModel
+            var model = new PermissionAndEmployeeViewModel
             {
                 EmployeeList = _db.Employees.ToList(),
-                VacationObj = _db.Vacations.SingleOrDefault(v => v.Id == id)
+                PermissionObj = _db.Permissions.SingleOrDefault(v => v.Id == id)
             };
 
 
@@ -77,10 +85,10 @@ namespace Proyecto_Final.Controllers.Process
             return View(model);
         }
 
-        //POST: Edit/#id
+        // POST: Permission/Edit/#id
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(VacationAndEmployeeViewModel model)
+        public async Task<IActionResult> Edit(PermissionAndEmployeeViewModel model)
         {
             if (!ModelState.IsValid)
             {
@@ -89,26 +97,26 @@ namespace Proyecto_Final.Controllers.Process
 
             else
             {
-                var vacationInDB = await _db.Vacations.SingleOrDefaultAsync(v => v.Id == model.VacationObj.Id);
+                var permissionInDB = await _db.Permissions.SingleOrDefaultAsync(v => v.Id == model.PermissionObj.Id);
 
-                if (vacationInDB == null)
+                if (permissionInDB == null)
                 {
                     return NotFound();
                 }
                 else
                 {
-                    vacationInDB.EmployeeId = model.VacationObj.EmployeeId;
-                    vacationInDB.StartDate = model.VacationObj.StartDate;
-                    vacationInDB.EndDate = model.VacationObj.EndDate;
-                    vacationInDB.Comment = model.VacationObj.Comment;
+                    permissionInDB.EmployeeId = model.PermissionObj.EmployeeId;
+                    permissionInDB.StartDate = model.PermissionObj.StartDate;
+                    permissionInDB.EndDate = model.PermissionObj.EndDate;
+                    permissionInDB.Comment = model.PermissionObj.Comment;
 
                     await _db.SaveChangesAsync();
                     return RedirectToAction(nameof(Index));
                 }
-            }    
+            }
         }
 
-        //GET: Delete/#id
+        // GET: Permission/Delete/#id
         public async Task<IActionResult> Delete(int id)
         {
             if (id == null)
@@ -116,10 +124,10 @@ namespace Proyecto_Final.Controllers.Process
                 return NotFound();
             }
 
-            Vacation model = await _db.Vacations.SingleOrDefaultAsync(v => v.Id == id);
+            Permission model = await _db.Permissions.SingleOrDefaultAsync(v => v.Id == id);
             model.Employee = await _db.Employees.SingleOrDefaultAsync(e => e.Id == model.EmployeeId);
 
-            if (model ==  null)
+            if (model == null)
             {
                 return NotFound();
             }
@@ -127,14 +135,14 @@ namespace Proyecto_Final.Controllers.Process
             return View(model);
         }
 
-        //POST: Delete/#id
+        // POST: Permission/Delete/#id
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Deleting(int id)
+        public async Task<IActionResult> Deleting(int id)
         {
-            var vacation = await _db.Vacations.SingleOrDefaultAsync(v => v.Id == id);
-            vacation.Employee = await _db.Employees.SingleOrDefaultAsync(e => e.Id == vacation.EmployeeId);
-            _db.Remove(vacation);
+            var permission = await _db.Permissions.SingleOrDefaultAsync(p => p.Id == id);
+            permission.Employee = await _db.Employees.SingleOrDefaultAsync(e => e.Id == permission.EmployeeId);
+            _db.Remove(permission);
             await _db.SaveChangesAsync();
 
             return RedirectToAction(nameof(Index));

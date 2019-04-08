@@ -18,8 +18,8 @@ namespace Proyecto_Final.Data
         public DbSet<Employee> Employees { get; set; }
         public DbSet<Department> Departments { get; set; }
         public DbSet<Position> Positions { get; set; }
-
         public DbSet<Vacation> Vacations { get; set; }
         public DbSet<Permission> Permissions { get; set; }
+        public DbSet<License> Licenses { get; set; }
     }
 }

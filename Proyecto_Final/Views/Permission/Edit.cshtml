@@ -1,0 +1,51 @@
+﻿@model Proyecto_Final.ViewModels.PermissionAndEmployeeViewModel
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h2>Edit</h2>
+
+<h4>Permission</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="PermissionObj.Id" />
+            <div class="form-group">
+                <label asp-for="PermissionObj.EmployeeId" class="control-label"></label>
+                <select asp-for="PermissionObj.EmployeeId" class="form-control" 
+                    asp-items="@(new SelectList(Model.EmployeeList,"Id", "Id"))">
+                </select>
+                <span asp-validation-for="PermissionObj.EmployeeId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="PermissionObj.StartDate" class="control-label"></label>
+                <input asp-for="PermissionObj.StartDate" class="form-control" />
+                <span asp-validation-for="PermissionObj.StartDate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="PermissionObj.EndDate" class="control-label"></label>
+                <input asp-for="PermissionObj.EndDate" class="form-control" />
+                <span asp-validation-for="PermissionObj.EndDate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="PermissionObj.Comment" class="control-label"></label>
+                <input asp-for="PermissionObj.Comment" class="form-control" />
+                <span asp-validation-for="PermissionObj.Comment" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

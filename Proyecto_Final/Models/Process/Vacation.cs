@@ -28,8 +28,9 @@ namespace Proyecto_Final.Models.Process
         [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]
         [Display(Name = "Hasta")]
         public DateTime EndDate { get; set; }
-        [Display(Name ="Comentario")]
 
+        [MaxLength(30)]
+        [Display(Name ="Comentario")]
         public string Comment { get; set; }
     }
 }

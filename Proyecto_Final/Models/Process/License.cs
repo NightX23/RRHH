@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Proyecto_Final.Models.Process
 {
-    public class Permission
+    public class License
     {
         public int Id { get; set; }
         //FK EMPLOYEES-------------------------------------------------------------
@@ -29,6 +29,10 @@ namespace Proyecto_Final.Models.Process
         public DateTime EndDate { get; set; }
 
         [MaxLength(30)]
+        [Display(Name = "Movito")]
+        public string Reason { get; set; }
+
+        [MaxLength(40)]
         [Display(Name = "Comentario")]
         public string Comment { get; set; }
     }
