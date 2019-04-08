@@ -9,35 +9,41 @@
 <h4>Resignation</h4>
 <hr />
 <div class="row">
-    <div class="col-md-4">
         <form asp-action="Create">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="ResignationObj.EmployeeId" class="control-label"></label>
-                <select asp-for="ResignationObj.EmployeeId" class ="form-control" 
-                    asp-items="@(new SelectList(Model.EmployeeList,"Id","Id"))">
-                </select>
+            <div class="col-sm-12 col-md-6">
+                <div class="form-group">
+                    <label asp-for="ResignationObj.EmployeeId" class="control-label"></label>
+                    <select asp-for="ResignationObj.EmployeeId" class="form-control" multiple
+                        asp-items="@(new SelectList(Model.EmployeeList,"Id","Id"))">
+                    </select>
+                </div>
             </div>
-            <div class="form-group">
-                <label asp-for="ResignationObj.ResignationType" class="control-label"></label>
-                <input asp-for="ResignationObj.ResignationType" class="form-control" />
-                <span asp-validation-for="ResignationObj.ResignationType" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="ResignationObj.Reason" class="control-label"></label>
-                <input asp-for="ResignationObj.Reason" class="form-control" />
-                <span asp-validation-for="ResignationObj.Reason" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="ResignationObj.ResignationDate" class="control-label"></label>
-                <input asp-for="ResignationObj.ResignationDate" class="form-control" />
-                <span asp-validation-for="ResignationObj.ResignationDate" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-default" />
+            <div class="col-sm-12 col-md-6">
+                <div class="form-group">
+                    <label asp-for="ResignationObj.ResignationType" class="control-label"></label>
+                    <select asp-for="ResignationObj.ResignationType" class="form-control">
+                        <option value="Renuncia">Renuncia</option>
+                        <option value="Despido">Despido</option>
+                        <option value="Deshaucio">Deshaucio</option>
+                    </select>
+                    <span asp-validation-for="ResignationObj.ResignationType" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="ResignationObj.Reason" class="control-label"></label>
+                    <input asp-for="ResignationObj.Reason" class="form-control" />
+                    <span asp-validation-for="ResignationObj.Reason" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="ResignationObj.ResignationDate" class="control-label"></label>
+                    <input asp-for="ResignationObj.ResignationDate" class="form-control" />
+                    <span asp-validation-for="ResignationObj.ResignationDate" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <input type="submit" value="Create" class="btn btn-primary" />
+                </div>
             </div>
         </form>
-    </div>
 </div>
 
 <div>

@@ -1,0 +1,99 @@
+﻿@model Proyecto_Final.ViewModels.ResignationAndEmployeeViewModel
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Resignation</h4>
+    <hr />
+    <div class="container">
+        <div class="col-sm-12 col-md-6" style="border-right: 1px solid gray;">
+            <h3>Datos de empleado</h3>
+            <dl class="dl-horizontal">
+                <dt>
+                    @Html.DisplayNameFor(model => model.ResignationObj.EmployeeId):
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.ResignationObj.EmployeeId)
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.ResignationObj.Employee):
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.ResignationObj.Employee.FirstName)
+                    @Html.DisplayFor(model => model.ResignationObj.Employee.LastName)
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.ResignationObj.Employee.Phone):
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.ResignationObj.Employee.Phone)
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.ResignationObj.Employee.Email):
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.ResignationObj.Employee.Email)
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.ResignationObj.Employee.Department):
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.ResignationObj.Employee.Department.DepartmentName)
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.ResignationObj.Employee.Position):
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.ResignationObj.Employee.Position.PositionName)
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.ResignationObj.Employee.StartDate):
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.ResignationObj.Employee.StartDate)
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.ResignationObj.Employee.Salary):
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.ResignationObj.Employee.Salary)
+                </dd>
+            </dl>
+        </div>
+        <div class="col-sm-12 col-md-6">
+            <h3>Información sobre salida de empleado</h3>
+            <dl class="dl-horizontal">
+                <dt>
+                    @Html.DisplayNameFor(model => model.ResignationObj.ResignationType)
+                </dt>
+                <dd>
+                    @Html.TextBoxFor(model => model.ResignationObj.ResignationType,
+                    new { @readonly = "true", @class ="form-control" })
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.ResignationObj.Reason)
+                </dt>
+                <dd>
+                    @Html.TextBoxFor(model => model.ResignationObj.Reason,
+                    new { @readonly = "true", @class = "form-control" })
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.ResignationObj.ResignationDate)
+                </dt>
+                <dd>
+                    @Html.TextBoxFor(model => model.ResignationObj.ResignationDate,
+                    new { @readonly = "true", @class = "form-control" })
+                </dd>
+            </dl>
+            <div>
+                <a asp-action="Edit" asp-route-id="@Model.ResignationObj.Id" class="btn btn-primary">Edit</a> &nbsp;
+                <a asp-action="Index">Back to List</a>
+            </div>
+        </div>
+    </div>   
+</div>
+
