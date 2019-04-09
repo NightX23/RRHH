@@ -2,25 +2,96 @@
     ViewData["Title"] = "Home Page";
 }
 
-<div>
-    <form>
-        <h2>Maintenance Module</h2>
-        <div class="form-group"
-             style="border:1px solid gray;margin:10px;padding:5px; border-radius:5px;">
-            <a asp-controller="Employee" asp-action="Index" class="btn btn-lg btn-primary">Employee Operations</a>
-            <a asp-controller="Department" asp-action="Index" class="btn btn-lg btn-primary">Department Operations</a>
-            <a asp-controller="Position" asp-action="Index" class="btn btn-lg btn-primary">Position Operations</a>
-        </div>
+<div class="container-fluid col-sm-12">
 
-        <h2>Proccess Module</h2>
-        <div class="form-group"
+    <form>
+        <div class="row col-sm-12 col-md-5"
              style="border:1px solid gray;margin:10px;padding:5px; border-radius:5px;">
-            <a asp-controller="Paysheet" asp-action="Index" class="btn btn-lg btn-primary">Paysheet Operations</a>
-            <a asp-controller="Resignation" asp-action="Index" class="btn btn-lg btn-primary">Resignation Operations</a>
-            <a asp-controller="Vacation" asp-action="Index" class="btn btn-lg btn-primary">Vacation Operations</a>
-            <a asp-controller="Permission" asp-action="Index" class="btn btn-lg btn-primary">Permission Operations</a>
-            <a asp-controller="License" asp-action="Index" class="btn btn-lg btn-primary">License Operations</a>
+            <h2>Maintenance Module</h2>
+            <hr />
+
+            <div class="card col-sm-12 col-md-5"
+                 style="border:1px solid gray; padding:5px; border-radius:5px; box-shadow:3px 3px 0px gray; margin: 5px;">
+                <div class="card-body">
+                    <h3 class="card-title">Operaciones de empleado</h3>
+                    <p class="card-text">Acá se encuentran las operaciones relacionadas a los usuarios.</p>
+                    <a asp-controller="Employee" asp-action="Index" class="btn  btn-primary">Employee Operations</a>
+                </div>
+            </div>
+
+            <div class="card col-sm-12 col-md-5"
+                 style=" border:1px solid gray; padding:5px; border-radius:5px; box-shadow:3px 3px 0px gray;
+                    margin:5px;">
+                <div class="card-body">
+                    <h3 class="card-title">Operaciones de departamentos</h3>
+                    <p class="card-text">Acá se encuentran las operaciones relacionadas a los departamentos.</p>
+                    <a asp-controller="Department" asp-action="Index" class="btn btn-primary">Department Operations</a>
+                </div>
+            </div>
+
+            <div class="card col-sm-12 col-md-5"
+                 style="border:1px solid gray; padding:5px; border-radius:5px; box-shadow:3px 3px 0px gray; margin:5px;">
+                <div class="card-body">
+                    <h3 class="card-title">Operaciones de cargos</h3>
+                    <p class="card-text">Acá se encuentran las operaciones relacionadas a los cargos.</p>
+                    <a asp-controller="Position" asp-action="Index" class="btn btn-primary">Position Operations</a>
+                </div>
+            </div>
+
         </div>
+        
+        <div class="row col-sm-12 col-md-6"
+             style="border:1px solid gray;margin:10px;padding:5px; border-radius:5px;">
+            <h2>Proccess Module</h2>
+            <hr />
+            <div class="card col-sm-12 col-md-5"
+                 style="border:1px solid gray; padding:5px; border-radius:5px; box-shadow:3px 3px 0px gray; margin: 5px;">
+                <div class="card-body">
+                    <h3 class="card-title">Operaciones de nóminas</h3>
+                    <p class="card-text">Acá se encuentran las operaciones relacionadas a las nóminas.</p>
+                    <a asp-controller="Paysheet" asp-action="Index" class="btn btn-primary">Paysheet Operations</a>
+                </div>
+            </div>
+
+            <div class="card col-sm-12 col-md-5"
+                 style="border:1px solid gray; padding:5px; border-radius:5px; box-shadow:3px 3px 0px gray; margin: 5px;">
+                <div class="card-body">
+                    <h3 class="card-title">Operaciones de bajas</h3>
+                    <p class="card-text">Acá se encuentran las operaciones relacionadas a las bajas.</p>
+                    <a asp-controller="Resignation" asp-action="Index" class="btn btn-primary">Resignation Operations</a>
+                </div>
+            </div>
+
+            <div class="card col-sm-12 col-md-5"
+                 style="border:1px solid gray; padding:5px; border-radius:5px; box-shadow:3px 3px 0px gray; margin: 5px;">
+                <div class="card-body">
+                    <h3 class="card-title">Operaciones de Vacaciones</h3>
+                    <p class="card-text">Acá se encuentran las operaciones relacionadas a las vacaciones.</p>
+                    <a asp-controller="Vacation" asp-action="Index" class="btn btn-primary">Vacation Operations</a>
+                </div>
+            </div>
+
+            <div class="card col-sm-12 col-md-5"
+                 style="border:1px solid gray; padding:5px; border-radius:5px; box-shadow:3px 3px 0px gray; margin: 5px;">
+                <div class="card-body">
+                    <h3 class="card-title">Operaciones de Permisos</h3>
+                    <p class="card-text">Acá se encuentran las operaciones relacionadas a los permisos.</p>
+                    <a asp-controller="Permission" asp-action="Index" class="btn btn-primary">Permission Operations</a>
+                </div>
+            </div>
+
+            <div class="card col-sm-12 col-md-5"
+                 style="border:1px solid gray; padding:5px; border-radius:5px; box-shadow:3px 3px 0px gray; margin: 5px;">
+                <div class="card-body">
+                    <h3 class="card-title">Operaciones de Licencias</h3>
+                    <p class="card-text">Acá se encuentran las operaciones relacionadas a las licencias.</p>
+                    <a asp-controller="License" asp-action="Index" class="btn btn-primary">License Operations</a>
+                </div>
+            </div>
+
+
+        </div>
+        
 
 
 
