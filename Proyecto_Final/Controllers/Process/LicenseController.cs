@@ -27,17 +27,17 @@ namespace Proyecto_Final.Controllers.Process
         }
 
         // GET: License/Create
-        public IActionResult Create()
+        public async Task<IActionResult> Create()
         {
             var model = new LicenseAndEmployeeViewModel
             {
-                EmployeeList = _db.Employees.ToList()
+                EmployeeList = await _db.Employees.Where(e => e.Status == "Active").ToListAsync()
             };
 
             return View(model);
         }
 
-        // POST: Permission/Create
+        // POST: License/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(LicenseAndEmployeeViewModel model)
@@ -55,7 +55,7 @@ namespace Proyecto_Final.Controllers.Process
 
         }
 
-        // GET: Permission/Edit/#id
+        // GET: License/Edit/#id
         public async Task<IActionResult> Edit(int id)
         {
             if (id == null)
@@ -65,7 +65,7 @@ namespace Proyecto_Final.Controllers.Process
 
             var model = new LicenseAndEmployeeViewModel
             {
-                EmployeeList = await _db.Employees.ToListAsync(),
+                EmployeeList = await _db.Employees.Where(e => e.Status == "Active").ToListAsync(),
                 LicenseObj = await _db.Licenses.SingleOrDefaultAsync(l => l.Id == id)
             };
 
@@ -77,7 +77,7 @@ namespace Proyecto_Final.Controllers.Process
             return View(model);
         }
 
-        // POST: Permission/Edit/#id
+        // POST: License/Edit/#id
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(LicenseAndEmployeeViewModel model)
@@ -108,8 +108,19 @@ namespace Proyecto_Final.Controllers.Process
                 }
             }
         }
+        //GET: License/Details/#id
+        public async Task<IActionResult> Details(int id)
+        {
+            var model = await _db.Licenses.SingleOrDefaultAsync(l => l.Id == id);
 
-        // GET: Permission/Delete/#id
+            model.Employee = await _db.Employees.SingleOrDefaultAsync(e => e.Id == model.EmployeeId);
+            model.Employee.Department = await _db.Departments.SingleOrDefaultAsync(d => d.Id == model.Employee.DepartmentId);
+            model.Employee.Position = await _db.Positions.SingleOrDefaultAsync(p => p.Id == model.Employee.PositionId);
+
+            return View(model);
+        }
+
+        // GET: License/Delete/#id
         public async Task<IActionResult> Delete(int id)
         {
             if (id == null)
@@ -128,7 +139,7 @@ namespace Proyecto_Final.Controllers.Process
             return View(model);
         }
 
-        // POST: Permission/Delete/#id
+        // POST: License/Delete/#id
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Deleting(int id)

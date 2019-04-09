@@ -43,6 +43,7 @@ namespace Proyecto_Final.Models
         public int DepartmentId { get; set; }
 
         [ForeignKey("DepartmentId")]
+        [Display(Name ="Departamento")]
         public virtual Department Department { get; set; }
         //----------------------------------------------------------------------------
 
@@ -50,6 +51,7 @@ namespace Proyecto_Final.Models
         public int PositionId { get; set; }
 
         [ForeignKey("PositionId")]
+        [Display(Name = "Cargo")]
         public virtual Position Position { get; set; }
         //----------------------------------------------------------------------------
 
@@ -67,8 +69,7 @@ namespace Proyecto_Final.Models
         [Required]
         [StringLength(8, MinimumLength = 6)]
         [Display(Name = "Estado")]
-        //public Status Status { get; set; }
-        public string Status { get; set; } = "Active";
+        public string Status { get; set; } 
     }
 
 }

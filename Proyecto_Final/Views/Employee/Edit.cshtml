@@ -1,0 +1,81 @@
+﻿@model Proyecto_Final.ViewModels.DepartmentAndPositionInEmployeeViewModel
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h2>Edit</h2>
+
+<h4>Employee</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="EmployeeObj.Id" />
+            <div class="form-group">
+                <label asp-for="EmployeeObj.IdentificationId" class="control-label"></label>
+                <input asp-for="EmployeeObj.IdentificationId" class="form-control" />
+                <span asp-validation-for="EmployeeObj.IdentificationId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="EmployeeObj.FirstName" class="control-label"></label>
+                <input asp-for="EmployeeObj.FirstName" class="form-control" />
+                <span asp-validation-for="EmployeeObj.FirstName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="EmployeeObj.LastName" class="control-label"></label>
+                <input asp-for="EmployeeObj.LastName" class="form-control" />
+                <span asp-validation-for="EmployeeObj.LastName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="EmployeeObj.Phone" class="control-label"></label>
+                <input asp-for="EmployeeObj.Phone" class="form-control" />
+                <span asp-validation-for="EmployeeObj.Phone" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="EmployeeObj.Email" class="control-label"></label>
+                <input asp-for="EmployeeObj.Email" class="form-control" />
+                <span asp-validation-for="EmployeeObj.Email" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="EmployeeObj.DepartmentId" class="control-label"></label>
+                <select asp-for="EmployeeObj.DepartmentId" class="form-control" 
+                    asp-items="@(new SelectList(Model.DepartmentObj, "Id", "DepartmentName"))">
+                </select>
+                <span asp-validation-for="EmployeeObj.DepartmentId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="EmployeeObj.PositionId" class="control-label"></label>
+                <select asp-for="EmployeeObj.PositionId" class="form-control" 
+                    asp-items="@(new SelectList(Model.PositionObj, "Id", "PositionName"))">
+                </select>
+                <span asp-validation-for="EmployeeObj.PositionId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="EmployeeObj.StartDate" class="control-label"></label>
+                <input asp-for="EmployeeObj.StartDate" class="form-control" />
+                <span asp-validation-for="EmployeeObj.StartDate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="EmployeeObj.Salary" class="control-label"></label>
+                <input asp-for="EmployeeObj.Salary" class="form-control" />
+                <span asp-validation-for="EmployeeObj.Salary" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="hidden" asp-for="EmployeeObj.Status" />
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

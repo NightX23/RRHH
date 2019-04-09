@@ -77,27 +77,37 @@ namespace Proyecto_Final.Controllers
                 return NotFound();
             }
 
-            Employee employee = await _db.Employees.SingleOrDefaultAsync(e => e.Id == id);
-            
-            if(employee == null)
+            DepartmentAndPositionInEmployeeViewModel model = new DepartmentAndPositionInEmployeeViewModel()
+            {
+                EmployeeObj = await _db.Employees.Include(e => e.Position).Include(e => e.Department)
+                .SingleOrDefaultAsync(e => e.Id == id),
+                DepartmentObj = await _db.Departments.ToListAsync(),
+                PositionObj = await _db.Positions.ToListAsync()
+
+            };
+            if(model == null)
             {
                 return NotFound();
             }
-            return View();
+
+            //model.EmployeeObj.Department = await _db.Departments.SingleOrDefaultAsync(d => d.Id == model.EmployeeObj.DepartmentId);
+            //model.EmployeeObj.Position = await _db.Positions.SingleOrDefaultAsync(p => p.Id == model.EmployeeObj.PositionId);
+
+            return View(model);
         }
 
         //POST: Edit/#id
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(Employee employee)
+        public async Task<IActionResult> Edit(DepartmentAndPositionInEmployeeViewModel model)
         {
             if (!ModelState.IsValid)
             {
-                return View(employee);
+                return View(model);
             }
             else
             {
-                var employeeInDB = await _db.Employees.SingleOrDefaultAsync(e => e.Id == employee.Id);
+                var employeeInDB = await _db.Employees.SingleOrDefaultAsync(e => e.Id == model.EmployeeObj.Id);
 
                 if (employeeInDB ==  null)
                 {
@@ -105,7 +115,7 @@ namespace Proyecto_Final.Controllers
                 }
                 else
                 {
-                    employeeInDB = employee;
+                    employeeInDB = model.EmployeeObj;
 
                     await _db.SaveChangesAsync();
                     return RedirectToAction(nameof(Index));
@@ -126,6 +136,9 @@ namespace Proyecto_Final.Controllers
             {
                 return NotFound();
             }
+
+            employee.Department = await _db.Departments.SingleOrDefaultAsync(d => d.Id == employee.DepartmentId);
+            employee.Position = await _db.Positions.SingleOrDefaultAsync(p => p.Id == employee.PositionId);
 
             return View(employee);
         }

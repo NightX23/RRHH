@@ -21,17 +21,17 @@ namespace Proyecto_Final.Controllers.Process
 
         public async Task<IActionResult> Index()
         {
-            var searchList = _db.Vacations.Include(v => v.Employee);
+            var searchList =  _db.Vacations.Include(v => v.Employee);
 
             return View(await searchList.OrderBy(v => v.Id).ToListAsync());
         }
 
         //GET: Permission/Create
-        public IActionResult Create()
+        public async Task<IActionResult> Create()
         {
             var model = new VacationAndEmployeeViewModel
             {
-                EmployeeList = _db.Employees.ToList()
+                EmployeeList = await _db.Employees.Where(e => e.Status == "Active").ToListAsync()
             };
 
             return View(model);

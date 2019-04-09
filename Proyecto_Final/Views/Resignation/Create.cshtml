@@ -15,8 +15,9 @@
                 <div class="form-group">
                     <label asp-for="ResignationObj.EmployeeId" class="control-label"></label>
                     <select asp-for="ResignationObj.EmployeeId" class="form-control" multiple
-                        asp-items="@(new SelectList(Model.EmployeeList,"Id","Id"))">
-                    </select>
+                            asp-items="@(new SelectList(Model.EmployeeList,"Id","Id"))"></select>
+                    <span asp-validation-for="ResignationObj.EmployeeId" class="text-danger"></span>
+
                 </div>
             </div>
             <div class="col-sm-12 col-md-6">

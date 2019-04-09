@@ -20,11 +20,11 @@ namespace Proyecto_Final.Controllers.Process
             _db = db;
         }
 
-        public async Task<IActionResult> Index()
+        public IActionResult Index()
         {
             var searchList = _db.Permissions.Include(v => v.Employee);
 
-            return View(await searchList.OrderBy(p => p.Id).ToListAsync());
+            return View(searchList.OrderBy(p => p.Id).ToList());
         }
 
         
@@ -34,11 +34,11 @@ namespace Proyecto_Final.Controllers.Process
         }
 
         // GET: Permission/Create
-        public IActionResult Create()
+        public async Task<IActionResult> Create()
         {
             var model = new PermissionAndEmployeeViewModel
             {
-                EmployeeList = _db.Employees.ToList()
+                EmployeeList = await _db.Employees.Where(e => e.Status == "Active").ToListAsync()
             };
 
             return View(model);
@@ -63,7 +63,7 @@ namespace Proyecto_Final.Controllers.Process
         }
 
         // GET: Permission/Edit/#id
-        public IActionResult Edit(int id)
+        public async Task<IActionResult> Edit(int id)
         {
             if (id == null)
             {
@@ -72,8 +72,8 @@ namespace Proyecto_Final.Controllers.Process
 
             var model = new PermissionAndEmployeeViewModel
             {
-                EmployeeList = _db.Employees.ToList(),
-                PermissionObj = _db.Permissions.SingleOrDefault(v => v.Id == id)
+                EmployeeList = await _db.Employees.Where(e => e.Status == "Active").ToListAsync(),
+                PermissionObj = await _db.Permissions.SingleOrDefaultAsync(p => p.Id == id)
             };
 
 
@@ -97,7 +97,7 @@ namespace Proyecto_Final.Controllers.Process
 
             else
             {
-                var permissionInDB = await _db.Permissions.SingleOrDefaultAsync(v => v.Id == model.PermissionObj.Id);
+                var permissionInDB = await _db.Permissions.SingleOrDefaultAsync(p => p.Id == model.PermissionObj.Id);
 
                 if (permissionInDB == null)
                 {
@@ -124,7 +124,7 @@ namespace Proyecto_Final.Controllers.Process
                 return NotFound();
             }
 
-            Permission model = await _db.Permissions.SingleOrDefaultAsync(v => v.Id == id);
+            Permission model = await _db.Permissions.SingleOrDefaultAsync(p => p.Id == id);
             model.Employee = await _db.Employees.SingleOrDefaultAsync(e => e.Id == model.EmployeeId);
 
             if (model == null)

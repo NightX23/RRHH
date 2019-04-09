@@ -96,7 +96,6 @@ namespace Proyecto_Final.Controllers.Process
         {
             if (!ModelState.IsValid)
             {
-
                 return View(model);
             }
 
